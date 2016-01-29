@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+<html manifest="cards.appcache">
+-->
+<html>
+  <head>
+    <title>Cards</title>
+
+    <!-- add to home screen -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- butt ton of favicons -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57"
+    href="apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+    href="apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+    href="apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+    href="apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60"
+    href="apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+    href="apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+    href="apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+    href="apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196"
+    />
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+    <!-- our best friend jquery -->
+    <script src="jquery-2.2.0.min.js"></script>
+
+    <!-- style -->
+    <style>
+#deck {
+  display: none;
+  background-color: black;
+  padding: 10em;
+  color: white;
+}
+    </style>
+  </head>
+  <body>
+    <div id="home">
+      <h1>Cards</h1>
+      <li id="test">test</li>
+    </div>
+    <div id="deck">
+      <p>fuck fuck fuck</p>
+    </div>
+  <script>
+  var poop
+$(document).ready(function() {
+  $('#home').on('click', function(event) {
+    $.get('test.jsontext', function(data) {
+      // do this fancy shit b/c github only serves raw text
+      data = JSON.parse(JSON.stringify(eval('('+data+')')))
+      $('#home').hide()
+      $('#deck').show()
+      // probably make this out into a seperate function?
+      $('#deck').text(data['foo'])
+      $('#deck').on('click', function(event) {
+        $('#deck').append('clicked')
+      })
+    }, 'text') // specify 'text' b/c that's the response
+  })
+  /*
+  $.get('/test.json', function(data) {
+    // do this fancy shit b/c github.io only serves pages as text
+    data = JSON.parse(
+      JSON.stringify(
+        eval('(' + data + ')')
+    ))
+    $('h1').text(data['foo'])
+  }, 'text')
+  */
+  /*
+  var request = new XMLHttpRequest()
+  request.onreadystatechange = function(){
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log('response: ' + request.responseText)
+        $('h1').text(request.responseText)
+      }
+    }
+  }
+  request.open('GET','test.json', true)
+  request.send(null)
+  */
+})
+  </script>
+  </body>
+</html>
