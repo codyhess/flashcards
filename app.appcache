@@ -1,7 +1,9 @@
 CACHE MANIFEST
-# version 4
+# version 31
 
 CACHE:
 index.html
 app.js
 app.css
+decks/test.jsontext
+decks/testDeck.js
