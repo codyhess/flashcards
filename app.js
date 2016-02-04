@@ -4,6 +4,12 @@
 var header, eventName
 
 /*
+ * AJAX OBJECT
+ */
+var cardKeys
+var cardIndex = 0
+
+/*
  * INITIALIZATION
  */
 document.addEventListener('DOMContentLoaded', function(event) {
@@ -14,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	// ASSIGN ELEMENT VARIABLES
 	header = document.getElementById('header')
 	eventName = document.getElementById('eventName')
+	card = document.getElementById('card')
+
+	cardKeys = Object.keys(testDeck)
+	//loadCards()
 })
 
 /*
@@ -55,33 +65,29 @@ var touchEnd = function(event) {
 
 // These are filled with sample code. Change this part!
 function oneFingerTouch() {
-	if (leftSwipe()) {
-		eventName.innerText = 'left swipe'
-		console.log('left swipe')
-	} else if (rightSwipe()) {
-		eventName.innerText = 'right swipe'
-		console.log('right swipe')
-	} else if (upSwipe()) {
-		eventName.innerText = 'up swipe'
-		console.log('up swipe')
-	} else if (downSwipe()) {
-		eventName.innerText = 'down swipe'
-		console.log('down swipe')
+	if (leftSwipe() || upSwipe()) {
+		console.log('pushing')
+		deckPush()
+		nextCard()
+	} else if (rightSwipe() || downSwipe()) {
+		console.log('popping')
+		deckShift()
+		nextCard()
 	} else {
-		eventName.innerText = 'one finger touch'
-		console.log('one finger touch')
+		cardFlip()
+		console.log('flipping')
 	}
 }
 function twoFingerTouch() {
-	eventName.innerText = 'two finger touch'
+	card.innerText = 'two finger touch'
 	console.log('two finger touch')
 }
 function threeFingerTouch() {
-	eventName.innerText = 'three finger touch'
+	card.innerText = 'three finger touch'
 	console.log('three finger touch')
 }
 function fourFingerTouch() {
-	eventName.innerText = 'four finger touch ... refreshing page'
+	card.innerText = 'four finger touch ... refreshing page'
 	console.log('four finger touch ... refreshing page')
 	setTimeout(function(){location.reload()}, 500)
 }
@@ -90,3 +96,44 @@ function leftSwipe() { return (changeX < -30) }
 function rightSwipe() { return (changeX > 30) }
 function upSwipe() { return (changeY < -30) }
 function downSwipe() { return (changeY > 30) }
+
+/*
+ * PERSONAL FUNCTIONS
+ */
+function loadCards() {
+	var request = new XMLHttpRequest()
+	request.onreadystatechange = function() {
+		if (request.readyState == 4 && request.status == 200) {
+			console.log('response: ' + request.responseText)
+			var rt = request.responseText
+			cardDict = JSON.parse(JSON.stringify(eval('('+rt+')')))
+			cardKeys = Object.keys(cardDict)
+		}
+	}
+	request.open('GET','decks/test.jsontext', true)
+	request.send(null)
+}
+function cardFlip() {
+	if (cardKeys.length < 1) {
+		return
+	} else if (card.innerText === cardKeys[cardIndex]) {
+		card.innerText = testDeck[cardKeys[cardIndex]]
+	} else {
+		card.innerText = cardKeys[cardIndex]
+	}
+}
+function deckShift() {
+	cardKeys.shift()
+	console.log(cardKeys[0])
+}
+function deckPush() {
+	cardKeys.push(cardKeys.shift())
+	console.log(cardKeys[0])
+}
+function nextCard() {
+	if (cardKeys.length > 0) {
+		card.innerText = cardKeys[0]
+	} else {
+		card.innerText = 'FINISHED'
+	}
+}
