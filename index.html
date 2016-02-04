@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html manifest="app.appcache">
+	
+	<head>
+		<!-- title (= -->
+		<title>Copy Pasta</title>
+
+		<!-- add to home screen -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<!-- android thinks it's an app -->
+		<meta name="viewport" content="width=device-width">
+
+		<!-- styles and scripts -->
+		<link href="app.css" rel="stylesheet">
+		<script src="app.js"></script>
+	</head>
+
+	<body>
+		<div id="header">
+			<h1>Copy Pasta</h1>
+			<p>Clone this repo to make an offline-capable HTML5 mobile app.</p>
+		</div>
+		<hr>
+		<div id="content">
+			<h3>Touch Event:</h3>
+			<span id="eventName">Touch and see!</span>
+		</div>
+	</body>
+
+</html>
