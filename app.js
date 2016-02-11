@@ -1,7 +1,7 @@
 /*
  * DECLARE ELEMENT VARIABLES
  */
-var header, eventName
+var header, eventName, card, question, answer
 
 /*
  * AJAX OBJECT
@@ -21,9 +21,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	header = document.getElementById('header')
 	eventName = document.getElementById('eventName')
 	card = document.getElementById('card')
+  question = document.getElementById('question')
+  answer = document.getElementById('answer')
 
-	cardKeys = Object.keys(testDeck)
-	//loadCards()
+	cardKeys = Object.keys(eventsDeck)
+  cardKeys = shuffle(cardKeys)
+
+  nextCard()
 })
 
 /*
@@ -74,8 +78,8 @@ function oneFingerTouch() {
 		deckShift()
 		nextCard()
 	} else {
-		cardFlip()
-		console.log('flipping')
+		showAnswer()
+		console.log('showing')
 	}
 }
 function twoFingerTouch() {
@@ -110,17 +114,15 @@ function loadCards() {
 			cardKeys = Object.keys(cardDict)
 		}
 	}
-	request.open('GET','decks/test.jsontext', true)
+	request.open('GET','events.js', true)
 	request.send(null)
 }
-function cardFlip() {
+function showAnswer() {
 	if (cardKeys.length < 1) {
 		return
-	} else if (card.innerText === cardKeys[cardIndex]) {
-		card.innerText = testDeck[cardKeys[cardIndex]]
-	} else {
-		card.innerText = cardKeys[cardIndex]
-	}
+  } else {
+    answer.className = 'fadein'
+  }
 }
 function deckShift() {
 	cardKeys.shift()
@@ -131,9 +133,23 @@ function deckPush() {
 	console.log(cardKeys[0])
 }
 function nextCard() {
+  answer.className = 'opacityZero'
 	if (cardKeys.length > 0) {
-		card.innerText = cardKeys[0]
+		question.innerText = cardKeys[0]
+		answer.innerText = eventsDeck[cardKeys[0]]
 	} else {
 		card.innerText = 'FINISHED'
 	}
+}
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+  return array
 }

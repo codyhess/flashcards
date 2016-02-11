@@ -2,4 +2,36 @@ body {
 	text-align: center;
 	background-color: lightblue;
 	font-family: monospace;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 10%;
+}
+.centered {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.opacityZero {
+  opacity: 0;
+}
+.fadein {
+  animation-duration: 1500ms;
+  animation-name: fadein;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+    font-style: italic;
+    font-weight: bold;
+  }
+}
+.slideright {
 }

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 
+<!--
+<html>
+-->
 <html manifest="app.appcache">
 	
 	<head>
 		<!-- title (= -->
-		<title>Flash Cards</title>
+		<title>DOM Event Flash Cards</title>
 
 		<!-- add to home screen -->
 		<meta name="mobile-web-app-capable" content="yes">
@@ -16,18 +19,21 @@
 		<!-- styles and scripts -->
 		<link href="app.css" rel="stylesheet">
 		<script src="decks/testDeck.js"></script>
+    <script src="events.js"></script>
 		<script src="app.js"></script>
 	</head>
 
 	<body>
 		<div id="header">
-			<h1>Flash Cards</h1>
-			<p>Learn shit!</p>
+			<h1>DOM Events</h1>
 		</div>
 		<hr>
-		<div id="content">
-			<h3>Card:</h3>
-			<span id="card">Waiting for a card.</span>
+		<div id="content" class="centered">
+			<div id="card">
+        <span id="question">just some test text</span>
+        <br>
+        <span id="answer" class="opacityZero">answer test</span>
+      </div>
 		</div>
 	</body>
 
